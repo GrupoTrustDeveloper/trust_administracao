@@ -3,7 +3,7 @@
 
 CREATE USER 'app_trustit_sys'@'%' IDENTIFIED BY 'Trust!T@dm1n';
 
-GRANT SELECT, INSERT, UPDATE ON nome_do_banco_de_dados.* TO 'app_trustit_sys'@'%';
+GRANT SELECT, INSERT, UPDATE ON TrustIT_sys_Admin.* TO 'app_trustit_sys'@'%';
 
 
 
@@ -151,3 +151,30 @@ INSERT INTO TrustIT_sys_Admin.trustit_sys_pessoa_juridica (razao_social, cnpj, l
 INSERT INTO TrustIT_sys_Admin.trustit_sys_pessoa_juridica (razao_social, cnpj, logradouro, numero, bairro, cidade, estado, pais, cep) VALUES ("Prefeitura - ALEGRE - ES","27.174.101/0001-35","PRQ GETULIO VARGAS","S/N","CENTRO","ALEGRE","ES","Brasil","29.500-000");
 INSERT INTO TrustIT_sys_Admin.trustit_sys_pessoa_juridica (razao_social, cnpj, logradouro, numero, bairro, cidade, estado, pais, cep) VALUES ("Prefeitura - ATILIO VIVACQUA - ES","27.165.620/0001-37","PC JOSE VALENTIM LOPES","2","CENTRO","ATILIO VIVACQUA","ES","Brasil","29.490-000");
 INSERT INTO TrustIT_sys_Admin.trustit_sys_pessoa_juridica (razao_social, cnpj, logradouro, numero, bairro, cidade, estado, pais, cep) VALUES ("Prefeitura - GUARAPARI - ES","27.165.190/0001-53","R ALENCAR MORAES REZENDE","100","JARDIM BOA VISTA","GUARAPARI","ES","Brasil","29.216-030");
+
+
+
+CREATE TABLE trustit_sys_usuario (
+    cpf CHAR(11) PRIMARY KEY,
+    nome VARCHAR(255),
+    telefone VARCHAR(20),
+    email VARCHAR(255) UNIQUE,
+	acesso varchar(100)
+);
+
+
+CREATE TABLE trustit_sys_usuario_permissao (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cpf_usuario CHAR(11),
+    nome_cadastro VARCHAR(100), -- Ex: 'ponto_instalacao', 'contato_ponto'
+    tipo_permissao ENUM('select', 'insert', 'update', 'delete'),
+    FOREIGN KEY (cpf_usuario) REFERENCES trustit_sys_usuario(cpf)
+);
+
+CREATE TABLE trustit_sys_usuario_pj_acesso (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cpf_usuario CHAR(11),
+    pessoa_juridica_id INT,
+    FOREIGN KEY (cpf_usuario) REFERENCES trustit_sys_usuario(cpf),
+    FOREIGN KEY (pessoa_juridica_id) REFERENCES trustit_sys_pessoa_juridica(id)
+);

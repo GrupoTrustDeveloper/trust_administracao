@@ -1,0 +1,40 @@
+======== Fase 1
+
+Boa tarde.
+
+Vamos desenvolver um sistema web em Python conectado a um banco de dados Maria DB.
+
+Ele deve ter a separação clara entre frontend e backend
+
+Ele será um sistema de cadastro e consulta inicialmente
+
+Os dados para conexão com o banco de dados 
+
+Servidor 192.168.0.195
+Porta 3306
+
+Usuário app_trustit_sys
+Senha Trust!T@dm1n
+
+O sistema deve ter uma tela de Login que fará validação contra a tabela trustit_sys_usuario validando CPF ou email informado e a senha informada contra a coluna acesso
+
+O sistema deve ter um menu lateral com as opções Parametros, Cadastro, Visualização e Configurações
+
+O acesso ao menu Parametros deve abrir uma tela de consulta a tabela trustit_sys_parametros em um browser com os campos ID com cabeçalho código, campo nome_parametro com cabeçalho Parâmetro e campo valor_parametro com cabeçalho Valor. Esta tela só deve permitir alterar o campo valor, sem possibilidade de inclusão ou exclusão de registro
+
+O acesso ao menu Cadastro deve abrir um sub-menu com as opções Cadastros Básicos, Cadastros Pessoa Juridica, Cadastros Pontos.
+
+O acesso ao Sub-menu Cadastros Básicos deve preparar os sub-menus:
+
+Tipo de Relacionamento com CRUD para a tabela trustit_sys_tipo_relacionamento
+Tipo de Cliente com CRUD para a tabela trustit_sys_tipo_cliente
+Status de Ponto com CRUD para a tabela trustit_sys_status_ponto
+Situação Implantação com CRUD para a tabela trustit_sys_situacao_implantacao
+
+O acesso ao Sub-menu Cadastros Pessoa Juridica apresentar 2 submenus
+
+Cadastro Pessoa Juríca com CRUD para a tabela trustit_sys_pessoa_juridica com botões para realizar a amarração da pessoa júridica cadastrada ao tipo de relacionamento pela tabela trustit_sys_pj_relacionamento
+Definição de Cliente com CRUD para a tabela de relacionamento trustit_sys_pj_tipo_cliente quere deve usar como filtro pra selecionar as pessoas juridicas o campo tipo_relacionamento_id da tabela trustit_sys_pj_relacionamento igual ao campo valor_parametro da tabela trustit_sys_parametros cujo campo id seja igual a 1 aqui criar um serviço que ao passar o id do parâmetro retorno seu campo valor para não ficar fazendo acesso diretamente 
+
+
+======== Fase 1
