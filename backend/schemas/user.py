@@ -18,3 +18,11 @@ class User(UserBase):
     class Config:
         # Permite que o Pydantic leia os dados de um modelo SQLAlchemy
         from_attributes = True
+
+# Esquema para atualizar um usuário (todos os campos opcionais)
+class UserUpdate(BaseModel):
+    email: Optional[EmailStr] = None
+    nome: Optional[str] = None
+    telefone: Optional[str] = None
+    acesso: Optional[str] = None
+    password: Optional[str] = None

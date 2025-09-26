@@ -18,6 +18,21 @@ Senha Trust!T@dm1n
 
 O sistema deve ter uma tela de Login que fará validação contra a tabela trustit_sys_usuario validando CPF ou email informado e a senha informada contra a coluna acesso
 
+Validar se a tabela existe e se não existir criar com a estrutura
+
+CREATE TABLE trustit_sys_usuario (
+    cpf CHAR(11) PRIMARY KEY,
+    nome VARCHAR(255),
+    telefone VARCHAR(20),
+    email VARCHAR(255) UNIQUE,
+	acesso varchar(100)
+);
+
+Caso a tabela já exista e não tenha nenhum registro realizar o insert 
+
+insert into trustit_sys_usuario values ('00000000000','Admin','+00(00)0000-0000','admin@admin.com.br', '@D1m1n1!2@3#4$')
+
+
 O sistema deve ter um menu lateral com as opções Parametros, Cadastro, Visualização e Configurações
 
 O acesso ao menu Parametros deve abrir uma tela de consulta a tabela trustit_sys_parametros em um browser com os campos ID com cabeçalho código, campo nome_parametro com cabeçalho Parâmetro e campo valor_parametro com cabeçalho Valor. Esta tela só deve permitir alterar o campo valor, sem possibilidade de inclusão ou exclusão de registro

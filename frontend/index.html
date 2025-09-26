@@ -1,72 +1,177 @@
+
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Cadastro</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-          crossorigin="anonymous">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sistema de Cadastro</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+    }
+    #login-screen, #main-content {
+      display: flex;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+    }
+    #login-screen {
+      flex-direction: column;
+    }
+    #login-screen input {
+      margin: 10px;
+      padding: 10px;
+      width: 250px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #login-screen button {
+      padding: 10px 20px;
+      background-color: #0078d7;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #main-content {
+      display: none;
+    }
+    nav {
+      width: 250px;
+      background-color: #2c3e50;
+      color: white;
+      height: 100vh;
+      padding-top: 20px;
+    }
+    nav ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    nav li {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    nav li:hover {
+      background-color: #34495e;
+    }
+    .submenu {
+      padding-left: 30px;
+      background-color: #3b4a5a;
+    }
+    section {
+      flex: 1;
+      padding: 40px;
+    }
+  </style>
+
+<style>
+  @media (max-width: 768px) {
+    body {
+      flex-direction: column;
+    }
+
+    nav {
+      width: 100%;
+      height: auto;
+      position: relative;
+    }
+
+    nav ul {
+      flex-direction: column;
+      padding: 0;
+    }
+
+    nav ul li {
+      width: 100%;
+      border-bottom: 1px solid #ccc;
+    }
+
+    section {
+      padding: 10px;
+    }
+
+    .submenu {
+      padding-left: 20px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    h2, h3 {
+      font-size: 1.2em;
+    }
+
+    input, button {
+      width: 100%;
+      font-size: 1em;
+    }
+
+    nav ul li a {
+      font-size: 1em;
+    }
+  }
+</style>
+
 </head>
 <body>
+  <div id="login-screen">
+    <h2>Acessar Sistema</h2>
+    <input type="text" placeholder="CPF ou Email" id="user" />
+    <input type="password" placeholder="Senha" id="password" />
+    <button onclick="login()">Entrar</button>
+  </div>
 
-<div class="container mt-5">
-    <h1 class="mb-4">Sistema de Cadastro e Consulta</h1>
+  <div id="main-content">
+    <nav>
+      <ul>
+        <li onclick="toggleSubmenu('cadastro-basico')">Cadastro Básico</li>
+        <ul id="cadastro-basico" class="submenu" style="display:none;">
+          <li>Tipo de Relacionamento</li>
+          <li>Tipo de Cliente</li>
+          <li>Status do Ponto</li>
+          <li>Situação Implantação do Ponto</li>
+        </ul>
+        <li onclick="toggleSubmenu('cadastro-pontos')">Cadastro de Pontos</li>
+        <ul id="cadastro-pontos" class="submenu" style="display:none;">
+          <li>Pessoa Jurídica</li>
+          <li>Cadastro de Pontos</li>
+        </ul>
+        <li onclick="toggleSubmenu('administracao')">Administração</li>
+        <ul id="administracao" class="submenu" style="display:none;">
+          <li>Usuários</li>
+          <li>Parametros</li>
+        </ul>
+        <li onclick="logout()">Logout</li>
+      </ul>
+    </nav>
+    <section>
+      <h3>Bem-vindo!</h3>
+      <p>Selecione uma opção no menu ao lado para começar.</p>
+    </section>
+  </div>
 
-    <!-- Formulário de Cadastro -->
-    <div class="card mb-5">
-        <div class="card-header">
-            <h2>Cadastrar Novo Item</h2>
-        </div>
-        <div class="card-body">
-            <form id="cadastro-form">
-                <div class="mb-3">
-                    <label for="nome" class="form-label">Nome</label>
-                    <input type="text" class="form-control" id="nome" placeholder="Digite o nome" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" placeholder="Digite o email" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
-            </form>
-        </div>
-    </div>
+  <script>
+    function login() {
+      const user = document.getElementById('user').value;
+      const password = document.getElementById('password').value;
+      if (user && password) {
+        document.getElementById('login-screen').style.display = 'none';
+        document.getElementById('main-content').style.display = 'flex';
+      } else {
+        alert('Preencha os campos corretamente.');
+      }
+    }
 
-    <!-- Tabela de Consulta -->
-    <div class="card">
-        <div class="card-header">
-            <h2>Itens Cadastrados</h2>
-        </div>
-        <div class="card-body">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th scope="col">#ID</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Ações</th>
-                </tr>
-                </thead>
-                <tbody id="tabela-dados">
-                <!-- Os dados do backend serão inseridos aqui via JavaScript -->
-                <tr>
-                    <td colspan="4" class="text-center">Nenhum dado cadastrado ainda.</td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+    function logout() {
+      document.getElementById('main-content').style.display = 'none';
+      document.getElementById('login-screen').style.display = 'flex';
+    }
 
-<!-- Bootstrap JS Bundle -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-
-<!-- Nosso script customizado -->
-<script src="app.js"></script>
-
+    function toggleSubmenu(id) {
+      const submenu = document.getElementById(id);
+      submenu.style.display = submenu.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
 </body>
 </html>
